@@ -1,35 +1,24 @@
-﻿using C__DZ.DZ_14_04_25;
+﻿using C__DZ.DZ_16_04_25;
 
-
-var list = new List<int>() { 1, 2, 3, 4, 5 };
-
-Console.WriteLine("Пример использования ModifyList");
-
-Console.WriteLine("Было:");
-foreach (var item in list)
+List<Student> students = new()
 {
-    Console.Write($"{item} ");
+    new ("Пётр", 19, 3.6),
+    new ("Оксана", 21, 3.4),
+    new ("Иван", 22, 3.9),
+    new ("Оля", 23, 4.9),
+    new ("Тимур", 24, 4.2),
+};
+
+foreach (var student in students)
+{
+    Console.WriteLine(student);
 }
 Console.WriteLine();
 
-var modifyList = list.ModifyList(x => x * 2);
+List<Student> students1 = [.. students.Where(student => student.Age > 20 && student.GPA > 3.5)];
+                          // students.Where(student => student.Age > 20 && student.GPA > 3.5).ToList()
 
-Console.WriteLine("Стало:");
-foreach (var item in modifyList)
+foreach (var student in students1)
 {
-    Console.Write($"{item} ");
+    Console.WriteLine(student);
 }
-Console.WriteLine();
-
-
-Console.WriteLine("\nПример использования делегата Operation");
-
-Operation operationAdd = MyOperations.Add;
-Operation operationSubtract = MyOperations.Subtract;
-Operation operationMultiply = MyOperations.Multiply;
-
-Console.WriteLine($"operationAdd = {operationAdd.Invoke(4, 5)}");
-Console.WriteLine($"operationSubtract = {operationSubtract.Invoke(4, 5)}");
-Console.WriteLine($"operationMultiply = {operationMultiply.Invoke(4, 5)}");
-
-public delegate int Operation(int x, int y);
