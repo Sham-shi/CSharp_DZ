@@ -1,23 +1,35 @@
-﻿using C__DZ.DZ_07_04_25;
+﻿using C__DZ.DZ_14_04_25;
 
-var advertisingPlatforms = new AdvertisingPlatforms();
 
-advertisingPlatforms.AddAdvertisingPlatform("Ревдинский рабочий:/ru/svrd/revda,/ru/svrd/pervik");
-advertisingPlatforms.AddAdvertisingPlatform("Газета уральских москвичей:/ru/msk,/ru/permobl,/ru/chelobl");
-advertisingPlatforms.AddAdvertisingPlatform("Крутая реклама:/ru/svrd");
-advertisingPlatforms.AddAdvertisingPlatform("Яндекс.Директ:/ru");
+var list = new List<int>() { 1, 2, 3, 4, 5 };
 
-var platforms = new List<string>();
+Console.WriteLine("Пример использования ModifyList");
 
-var location = "/ru/chelobl";
-
-//var location = AdvertisingPlatforms.InputLocation();
-
-platforms = advertisingPlatforms.GetPlatformsByLocation(location);
-
-Console.WriteLine($"Список рекламных платформ, действующих в локации: {location}");
-
-foreach (var platform in platforms)
+Console.WriteLine("Было:");
+foreach (var item in list)
 {
-    Console.WriteLine(platform);
+    Console.Write($"{item} ");
 }
+Console.WriteLine();
+
+var modifyList = list.ModifyList(x => x * 2);
+
+Console.WriteLine("Стало:");
+foreach (var item in modifyList)
+{
+    Console.Write($"{item} ");
+}
+Console.WriteLine();
+
+
+Console.WriteLine("\nПример использования делегата Operation");
+
+Operation operationAdd = MyOperations.Add;
+Operation operationSubtract = MyOperations.Subtract;
+Operation operationMultiply = MyOperations.Multiply;
+
+Console.WriteLine($"operationAdd = {operationAdd.Invoke(4, 5)}");
+Console.WriteLine($"operationSubtract = {operationSubtract.Invoke(4, 5)}");
+Console.WriteLine($"operationMultiply = {operationMultiply.Invoke(4, 5)}");
+
+public delegate int Operation(int x, int y);

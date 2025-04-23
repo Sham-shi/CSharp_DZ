@@ -193,66 +193,6 @@ public class AdvertisingPlatforms
 
         return inputLocation;
     }
-
-    //public List<string> GetPlatformsByLocation(string location)
-    //{
-    //    // по мере выполнения программы location будет изменяться
-    //    // чтобы избежать этого заведем временную переменную
-    //    string temp = location;
-    //    // переменная для хранения позиции символа '/'
-    //    int position;
-    //    // сюда будем записывать площадки, которые действуют в заданной location
-    //    var platforms = new List<string>();
-
-    //    while (temp != "")
-    //    {
-    //        foreach (var platform in platformsByLocation)
-    //        {
-    //            // если входящая локация совпадает с локацией в текущей платформе
-    //            if (platform.Value.Contains(temp))
-    //            {
-    //                // добавляем в список
-    //                platforms.Add(platform.Key);
-    //            }
-    //        }
-
-    //        // т.к. локации могут быть вложенными, необходимо постепенно сокращать temp
-    //        // пример: было - /ru/sverd, стало /ru
-    //        // для этого:
-    //        // находим позицию последнего вхождения символа '/'
-    //        position = temp.LastIndexOf('/');
-    //        // сокращаем temp
-    //        temp = temp[..position]; //temp.Substring(0, position)
-    //        // далее снова по циклу ищем совпадения по сокращенному temp
-    //    }
-
-    //    return platforms;
-    //}
-
-    // дял проверки введённой локации
-
-    //public void AddAdvertisingPlatform(string advertisingPlatformAndLocations)
-    //{
-    //    // разделяем строку на платформу и список локаций
-    //    var elements = advertisingPlatformAndLocations.Split(':');
-
-    //    // разделяем список локаций на отдельные локации (если их несколько)
-    //    var locations = elements[1].Split(',');
-
-    //    // обозначаем текущую платформу
-    //    var currentPlatform = elements[0];
-
-    //    // заполняем словарь данными
-    //    if (!platformsByLocation.ContainsKey(currentPlatform))
-    //    {
-    //        platformsByLocation[currentPlatform] = [];
-    //    }
-
-    //    for (int i = 0; i < locations.Length; i++)
-    //    {
-    //        platformsByLocation[currentPlatform].Add(locations[i]);
-    //    }
-    //}
 }
 
 
