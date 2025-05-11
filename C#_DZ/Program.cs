@@ -1,107 +1,67 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Unicode;
-using C__DZ.DZ_25_04_25.Task1;
-using C__DZ.DZ_25_04_25.Task3;
+﻿using C__DZ.DZ_23_04_25.Task1;
+using C__DZ.DZ_23_04_25.Task2;
+using C__DZ.DZ_23_04_25.Task3;
+using C__DZ.DZ_23_04_25.Task4;
 
-var jsonSerializerOptions = new JsonSerializerOptions
+
+//// Задача 1 -------------------------------------------------------
+
+// 1
+string path1 = "C:\\Example";
+string path2 = "C:\\Example\\Subfolder1";
+string path3 = "C:\\Example\\Subfolder2";
+
+MyDirectory.Create(path1);
+MyDirectory.Create(path2);
+MyDirectory.Create(path3);
+
+//// Задача 2 -------------------------------------------------------
+
+// 1
+string hello = "Hello, World!";
+var fileName = "\\hello.txt";
+var pathToHello = path2 + fileName;
+
+MyFile.WriteText(pathToHello, hello);
+MyFile.Append(pathToHello, "Bye-bye!");
+
+// 2
+MyFile.ReadText(pathToHello);
+Console.WriteLine();
+
+var strings = new List<string>()
 {
-    Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
-    WriteIndented = true
+    "Hello",
+    "World!"
 };
 
-
-//// Задача 1 -------------------------------------------------------------------------------------
-
-var student = new Student()
-{
-    Name = "Пётр",
-    Age = 23,
-    Grades = [4, 4, 3, 5, 3]
-};
-
-var jsonStudent = JsonSerializer.Serialize(student, jsonSerializerOptions);
-
-Console.WriteLine("Сериализация студента в формате json:");
-Console.WriteLine(jsonStudent);
+MyFile.WriteLines(pathToHello, strings);
+MyFile.ReadLines(pathToHello);
 Console.WriteLine();
 
-//// Задача 2 -------------------------------------------------------------------------------------
+// 3
+MyFile.Copy(pathToHello, path3 + fileName);
 
-student = JsonSerializer.Deserialize<Student>(jsonStudent);
+MyFile.Move(pathToHello, path3 + fileName);
 
-Console.WriteLine("Студент после десериализации:");
-Console.WriteLine(student);
+//// Задача 3 -------------------------------------------------------
+
+var pathToTst = $"{path2}\\tst.txt";
+
+MyFileStream.StreamWriterOpenOrCreate(pathToTst, hello);
+
+MyFileStream.StreamWriterAppend(pathToTst, "Bom");
+
+MyFileStream.StreamReader(pathToTst);
 Console.WriteLine();
 
-//// Задача 3 -------------------------------------------------------------------------------------
+//// Задача 4 -------------------------------------------------------
 
-var book = new Book()
-{
-    Title = "Война и мир",
-    Author = "Лев Толстой",
-    PublishedDate = new DateTime(1869, 12, 31)
-};
 
-var jsonBook = JsonSerializer.Serialize(book, jsonSerializerOptions);
+Console.WriteLine(">>>>Нажмите любую клавишу для продолжения<<<<");
+Console.ReadKey(true);
 
-Console.WriteLine("Сериализация книги в формате json с именами свойств в формате camelCase:");
-Console.WriteLine(jsonBook);
-Console.WriteLine();
+var fileManager = new MyFileManager();
+fileManager.Start();
 
-//// Задача 4 -------------------------------------------------------------------------------------
-
-var books = new List<Book>()
-{
-    book,
-    new()
-    {
-        Title = "Преступление и наказание",
-        Author = "Фёдор Достоевский",
-        PublishedDate = new DateTime(1866, 1, 1)
-    },
-    new()
-    {
-        Title = "Мастер и Маргарита",
-        Author = "Михаил Булгаков",
-        PublishedDate = new DateTime(1966, 11, 1)
-    },
-    new()
-    {
-        Title = "1984",
-        Author = "Джордж Оруэлл",
-        PublishedDate = new DateTime(1949, 6, 8)
-    },
-    new()
-    {
-        Title = "Гарри Поттер и философский камень",
-        Author = "Джоан Роулинг",
-        PublishedDate = new DateTime(1997, 6, 26)
-    }
-};
-
-var jsonBooks = JsonSerializer.Serialize(books, jsonSerializerOptions);
-
-books = JsonSerializer.Deserialize<List<Book>>(jsonBooks);
-
-Console.WriteLine("Коллекция книг после десериализации:");
-foreach (var itemBook in books)
-{
-    Console.WriteLine(itemBook);
-}
-Console.WriteLine();
-
-//// Задача 5 -------------------------------------------------------------------------------------
-
-File.WriteAllText("C:\\Test\\data.json", jsonBooks);
-
-var jsonFromFile = File.ReadAllText("C:\\Test\\data.json");
-
-var booksFromFile = JsonSerializer.Deserialize<List<Book>>(jsonFromFile);
-
-Console.WriteLine("Коллекция книг после чтения из файла и десериализации:");
-foreach (var itemBook in booksFromFile)
-{
-    Console.WriteLine(itemBook);
-}
-Console.WriteLine();
+//MyDirectory.Delete(path1);
