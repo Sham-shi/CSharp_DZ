@@ -1,36 +1,29 @@
-﻿using C__DZ.DZ_30_04_25;
+﻿using C__DZ.DZ_29_04_25;
+using System.Net.Http.Headers;
 
+var myStack1 = new MyStack<int>();
 
-var myLinkedList = new MyLinkedList<string>();
+myStack1.Push(1);
+myStack1.Push(3);
+myStack1.Push(2);
+myStack1.Push(3);
 
-Console.WriteLine($"{myLinkedList.Contains("Катя")}");
-Console.WriteLine();
-
-myLinkedList.Add("Вася");
-myLinkedList.Add("Петя");
-myLinkedList.Add("Оля");
-myLinkedList.Add("Маша");
-myLinkedList.Add("Катя");
-
-Console.WriteLine($"{myLinkedList.Count}");
-foreach (var item in myLinkedList)
+foreach (var item in myStack1)
 {
     Console.WriteLine(item);
 }
 Console.WriteLine();
 
-Console.WriteLine($"{myLinkedList.Contains("Катя")}");
+Console.WriteLine(myStack1.Peek());
 Console.WriteLine();
 
-Console.WriteLine($"{myLinkedList.Contains("Саша")}");
+Console.WriteLine(myStack1.Pop());
 Console.WriteLine();
 
-myLinkedList.Remove("Вася");
-myLinkedList.Remove("Оля");
-myLinkedList.Remove("Катя");
+Console.WriteLine(myStack1.Pop());
+Console.WriteLine();
 
-Console.WriteLine($"{myLinkedList.Count}");
-foreach (var item in myLinkedList)
+foreach (var item in myStack1)
 {
     Console.WriteLine(item);
 }

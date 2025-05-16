@@ -11,7 +11,9 @@ public class MyLinkedList<T> : IEnumerable<T>
         public Node<T>? Next { get; set; }
     }
 
-    private Node<T>? _root;
+    private Node<T>? _head;
+
+    //private Node<T>? _tail;
 
     public int Count { get; private set; }
 
@@ -19,13 +21,13 @@ public class MyLinkedList<T> : IEnumerable<T>
     {
         var node = new Node<T> { Value = data };
 
-        if (_root == null)
+        if (_head == null)
         {
-            _root = node;
+            _head = node;
         }
         else
         {
-            var currentRoot = _root;
+            var currentRoot = _head;
 
             while (currentRoot.Next != null)
             {
@@ -40,7 +42,7 @@ public class MyLinkedList<T> : IEnumerable<T>
 
     public bool Remove(T data)
     {
-        var currentNode = _root;
+        var currentNode = _head;
         Node<T>? previosNode = null;
 
         while (currentNode != null)
@@ -49,7 +51,7 @@ public class MyLinkedList<T> : IEnumerable<T>
             {
                 if (previosNode == null)
                 {
-                    _root = _root.Next;
+                    _head = _head.Next;
                 }
                 else
                 {
@@ -69,7 +71,7 @@ public class MyLinkedList<T> : IEnumerable<T>
 
     public bool Contains(T data)
     {
-        var currentRoot = _root;
+        var currentRoot = _head;
 
         while (currentRoot != null)
         {
@@ -86,7 +88,7 @@ public class MyLinkedList<T> : IEnumerable<T>
 
     public IEnumerator<T> GetEnumerator()
     {
-        var currentRoot = _root;
+        var currentRoot = _head;
 
         while (currentRoot != null)
         {
