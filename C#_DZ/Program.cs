@@ -1,30 +1,47 @@
-﻿using C__DZ.DZ_29_04_25;
-using System.Net.Http.Headers;
+﻿using C__DZ.DZ_28_04_25;
+using C__DZ.DZ_28_04_25.Commands;
+using C__DZ.DZ_28_04_25.Commands.Interfaces;
+using C__DZ.DZ_28_04_25.Model;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
-var myStack1 = new MyStack<int>();
+var loggingConfiguration = new LoggingConfiguration();
 
-myStack1.Push(1);
-myStack1.Push(3);
-myStack1.Push(2);
-myStack1.Push(3);
-
-foreach (var item in myStack1)
+var fileTarget = new FileTarget
 {
-    Console.WriteLine(item);
-}
-Console.WriteLine();
+    FileName = "C:\\Example\\log.txt",
+    Layout = @"{longdate}|${level:uppercase=true}|${message} ${exeption}"
+};
 
-Console.WriteLine(myStack1.Peek());
-Console.WriteLine();
+loggingConfiguration.AddRule(LogLevel.Info, LogLevel.Error, fileTarget);
 
-Console.WriteLine(myStack1.Pop());
-Console.WriteLine();
+LogManager.Configuration = loggingConfiguration;
 
-Console.WriteLine(myStack1.Pop());
-Console.WriteLine();
+var logger = LogManager.GetCurrentClassLogger();
 
-foreach (var item in myStack1)
+//var fileLoger = new FileLogger("C:\\Example\\log.txt");
+
+var tasks = new List<TaskToDo>();
+
+var commandByNumberCommand = new Dictionary<string, ITaskCommand>()
 {
-    Console.WriteLine(item);
+    {"1", new AddTaskCommand(tasks, logger)},
+    {"2", new RemoveTaskCommand(tasks, logger)},
+    {"3", new UpdateTaskCommand(tasks, logger)},
+    {"4", new ShowTaskCommand(tasks, Console.WriteLine, logger)},
+    {"5", new ChangeStatusTaskCommand(tasks, logger)}
+};
+
+string numberCommand = null;
+
+do
+{
+    numberCommand = Console.ReadLine();
+
+    if (commandByNumberCommand.TryGetValue(numberCommand, out ITaskCommand command)) //commandByNumberCommand.ContainsKey(numberCommand)
+    {
+        command.Execute();
+    }
 }
-Console.WriteLine();
+while (numberCommand != "6");
